@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatistest.mapper.UserMapper">
+    <select id="findAll" resultType="User">
+        select * from user;
+    </select>
+
+    <select id="queryfml" parameterType="int" resultType="User">
+        select * from user where fmlid = #{fmlid}
+    </select>
+    <insert id="insert" parameterType="User">
+        insert into user (name,openid ,gender ,age ,hrts,bldO2,diastolic_pressure,systolic_pressure
+        )
+        values (#{name}, #{openid},#{gender},#{age},#{hrts},#{bldO2},#{diastolic_pressure}.#{systolic_pressure}
+               )
+    </insert>
+    <!--
+       根据id查询得到一个user对象
+     -->
+    <update id="updateUser" parameterType="User">
+        update user set name = #{name},gender = #{gender},age=#{age},height=#{height},weight=#{weight},fmlid = #{fmlid} where openid=#{openid}
+    </update>
+
+    <update id="updateFmlid" parameterType="User">
+        update  user set fmlid = #{id} where openid=#{openid}
+    </update>
+    <select id="getUserById" parameterType="int"
+            resultType="User">
+       select * from user where id=#{id}
+    </select>
+
+  <!-- 删除用户(Remove) -->
+    <delete id="deleteUser" parameterType="int">
+       delete from user where id=#{id}
+    </delete>
+
+    <select id="getUserByOpenid" parameterType="String"
+            resultType="User">
+        select * from user where openid=#{openid}
+    </select>
+
+    <select id="Openid_exist" parameterType="String" resultType="int">
+        select count(*) from user where openid=#{openid}
+    </select>
+    <!-- XWD -->
+    <select id="logincheck1" parameterType="String" resultType="int">
+        select count(*) from xwduser where name=#{username}
+    </select>
+
+    <select id="logincheck2" parameterType="String" resultType="String">
+        select password from xwduser where name=#{username}
+    </select>
+
+    <select id="getMaxId" resultType="int">
+        select max(id) from xwduser
+    </select>
+
+    <insert id="register" parameterType="xwdUser">
+        insert into xwduser (id,name,password,city,type,phone,introduction,username,certificate_type,certificate_num,register_time,modify_time)
+        values (#{id}, #{name},#{password},#{city},#{type},#{phone},#{introduction},#{username},#{certificate_type},#{certificate_num},#{register_time},#{modify_time}
+               )
+    </insert>
+    
+    <select id="getUser" parameterType="String"
+    resultType="xwdUser">
+        select * from xwduser where name=#{username}
+    </select>
+
+    <update id="updateId" parameterType="String">
+        update xwduser set name = #{newname} where name=#{username}
+    </update>
+
+    <update id="updatePwd" parameterType="String">
+        update xwduser set password = #{newPwd} where name=#{username}
+    </update>
+
+    <select id="getInfos" parameterType="String" resultType="xwdInfo">
+        select * from xwdInfo where  city= #{city} 
+    </select>
+
+    <select id="getnickname" parameterType="String" resultType="String">
+        select username from xwdUser where name= #{id}
+    </select>
+
+    <select id="getCity" parameterType="String" resultType="String">
+        select city from xwdUser where name= #{id}
+    </select>
+
+    <select id="getRespond" parameterType="int" resultType="qpjInfo">
+        select * from qpjInfo where xwd_id = #{id}
+    </select>
+    
+    <select id="getXwdInfos" parameterType="String" resultType="xwdInfo">
+        select * from xwdInfo where city = #{city} 
+    </select>
+
+    <select id="getMaxQpjId" resultType="int">
+        select max(request_id) from qpjInfo
+    </select>
+    
+    <insert id="insertQpjInfo" parameterType="qpjInfo">
+        insert into qpjInfo (request_id,xwd_id,username,introduction,request_time,modify_time,state)
+        values (#{request_id},#{xwd_id}, #{username},#{introduction},#{request_time},#{modify_time},#{state}
+               )
+    </insert>
+
+    <update id="increaseRes" parameterType="int">
+        update xwdInfo set response = response+1 where request_id = #{id}
+    </update>
+
+    <select id="getQpjInfo" parameterType="int" resultType="qpjInfo">
+        select * from qpjInfo where request_id = #{id}
+    </select>
+
+    <update id="setstate" parameterType="int">
+        update xwdInfo set state = 1 where request_id = #{id}
+    </update>
+
+    <update id="setResState" parameterType="int">
+        update qpjInfo set state = 1 where request_id = #{id}
+    </update>
+
+    <update id="decreaseRes" parameterType="int">
+        update xwdInfo set response = response-1 where request_id = #{id}
+    </update>
+
+    <delete id="deleteQpjInfo" parameterType="int">
+        delete from qpjInfo where request_id=#{id}
+    </delete>
+
+    <select id="getSheet" parameterType="String" resultType="sheet">
+        select * from agentsheet where city = #{city}
+    </select>
+
+    <update id="changeSheet" parameterType="int">
+        update agentsheet set income = income+10 where type = #{type}
+    </update>
+
+    <select id="getMaxXwdId" resultType="int">
+        select max(request_id) from xwdInfo
+    </select>
+
+    <insert id="insertXwdInfo" parameterType="xwdInfo">
+        insert into xwdInfo (request_id,username,flavour_type,theme_type,introduction,price,deadline,photo,request_time,modify_time,state,response,city)
+        values (#{request_id},#{username},#{flavour_type},#{theme_type},#{introduction},#{price},#{deadline},#{photo},#{request_time},#{modify_time},#{state},#{response},#{city}
+               )
+    </insert>
+
+    <select id="getSheetNum"  parameterType="sheet" resultType="int">
+        select count(*) from agentsheet where city=#{city} and type=#{type}
+    </select>
+
+    <insert id="insertSheet" parameterType="sheet">
+        insert into agentsheet (month,city,type,dealtimes,income)
+        values (#{month},#{city},#{type},#{dealtimes},#{income}
+               )
+    </insert>
+
+    <delete id="deleteXwdInfo" parameterType="int">
+        delete from xwdInfo where request_id=#{id}
+     </delete>
+    
+
+</mapper>

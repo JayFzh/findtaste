@@ -1,0 +1,56 @@
+中介收益汇总表:
+CREATE TABLE `agentsheet` (
+  `month` datetime NOT NULL,
+  `city` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `type` int DEFAULT NULL,
+  `dealtimes` int DEFAULT NULL,
+  `income` int DEFAULT NULL,
+  PRIMARY KEY (`month`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
+
+用户类:
+CREATE TABLE `xwduser` (
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `type` int DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `introduction` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `certificate_type` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `certificate_num` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `register_time` datetime DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
+
+寻味道:
+CREATE TABLE `xwdinfo` (
+  `request_id` int NOT NULL,
+  `username` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `flavour_type` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `theme_type` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `introduction` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `deadline` datetime DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `request_time` datetime DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  `state` int DEFAULT NULL,
+  `response` int DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`request_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
+
+请品鉴：
+CREATE TABLE `qpjinfo` (
+  `request_id` int NOT NULL,
+  `xwd_id` int DEFAULT NULL,
+  `introduction` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `request_time` datetime DEFAULT NULL,
+  `modify_time` datetime DEFAULT NULL,
+  `state` int DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`request_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
